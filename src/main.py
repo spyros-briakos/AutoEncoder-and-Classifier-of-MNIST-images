@@ -22,7 +22,7 @@ def main(argv):
     # print(images[0][0])
     images_2_show = []
     titles_2_show = []
-    for i in range(0, 10):
+    for i in range(0, 20):
         r = random.randint(1, 60000)
         images_2_show.append(images[r])
         titles_2_show.append('training image [' + str(r) + ']')  
