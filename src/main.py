@@ -57,7 +57,9 @@ def Load_Mnist_Images(train_images_path):
         img = np.array(image_data[i * rows * cols:(i + 1) * rows * cols])
         img = img.reshape(28, 28)
         images[i][:] = img            
-    
+    print("Number of images: ",num_of_images)
+    print("Rows of images: ",rows)
+    print("Cols of images: ",cols)
     return images
 
 if __name__ == "__main__":
