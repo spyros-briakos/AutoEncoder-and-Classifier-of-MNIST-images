@@ -25,7 +25,7 @@ def main(argv):
     for i in range(0, 10):
         r = random.randint(1, 60000)
         images_2_show.append(images[r])
-        titles_2_show.append('training image [' + str(r) + '] = ' + str(images[r]))  
+        titles_2_show.append('training image [' + str(r) + ']')  
 
     show_images(images_2_show, titles_2_show)
 
@@ -43,7 +43,7 @@ def show_images(images, title_texts):
         if title_text != '':
             plt.title(title_text, fontsize = 15);        
         index += 1
-    plt.savefig('images.jpg',  dpi=300, bbox_inches='tight')
+    plt.savefig('images.jpg')
 
 def Load_Mnist_Images(train_images_path):
     with open(train_images_path, 'rb') as file:
