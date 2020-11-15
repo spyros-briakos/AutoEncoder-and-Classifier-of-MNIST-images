@@ -4,7 +4,6 @@ from tensorflow import keras
 import struct
 from array import array
 import sys
-# %matplotlib inline
 import random
 import matplotlib.pyplot as plt
 
@@ -41,7 +40,7 @@ def show_images(images, title_texts):
         title_text = x[1]
         plt.subplot(rows, cols, index)        
         plt.imshow(image, cmap=plt.cm.gray)
-        if (title_text != ''):
+        if title_text != '':
             plt.title(title_text, fontsize = 15);        
         index += 1
     plt.savefig('images.jpg',  dpi=300, bbox_inches='tight')
@@ -64,4 +63,3 @@ def Load_Mnist_Images(train_images_path):
 
 if __name__ == "__main__":
     main(sys.argv[0:])
-    
