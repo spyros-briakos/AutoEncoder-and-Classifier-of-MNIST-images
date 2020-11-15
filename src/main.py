@@ -1,20 +1,9 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-<<<<<<< HEAD
-import pandas as pd
-import keras
-from keras import layers, optimizers, losses, metrics
-
-# model = keras.Sequential()
-# model.add(layers.Dense(64, activation='relu', input_shape=(10,)))
-# model.add(layers.Dense(64, activation='relu'))
-# model.add(layers.Dense(10, activation='softmax'))
-=======
 import struct
 from array import array
 import sys
-# %matplotlib inline
 import random
 import matplotlib.pyplot as plt
 
@@ -51,7 +40,7 @@ def show_images(images, title_texts):
         title_text = x[1]
         plt.subplot(rows, cols, index)        
         plt.imshow(image, cmap=plt.cm.gray)
-        if (title_text != ''):
+        if title_text != '':
             plt.title(title_text, fontsize = 15);        
         index += 1
     plt.savefig('images.jpg',  dpi=300, bbox_inches='tight')
@@ -72,5 +61,3 @@ def Load_Mnist_Images(train_images_path):
 
 if __name__ == "__main__":
     main(sys.argv[0:])
-    
->>>>>>> 807b191e4b4f9c40e7281d4490479098e676c294
