@@ -9,11 +9,15 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import MaxPooling2D
+<<<<<<< HEAD
 # from keras import layers, optimizers, losses, metrics
 # import keras
 from tensorflow.keras.layers import Input,Conv2D,MaxPooling2D,UpSampling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import RMSprop
+=======
+from keras import layers, optimizers, losses, metrics
+>>>>>>> 917f129b7f109a61bc33a617a80247ba45043880
 
 def main(argv):
     if(len(sys.argv) != 3):
@@ -62,6 +66,7 @@ def main(argv):
 
 
 
+<<<<<<< HEAD
 def AutoEncoder(input_image):
     convolution_layer = Encoder(input_image)
     decoded_layer = Decoder(convolution_layer)
@@ -106,6 +111,10 @@ def Decoder(conv4):
     decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(up2) # 28 x 28 x 1
     
     return decoded
+=======
+def encoder(image):
+    print("geia")
+>>>>>>> 917f129b7f109a61bc33a617a80247ba45043880
 
 
 def show_images(images, title_texts):
