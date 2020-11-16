@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import MaxPooling2D
-from kerasimport layers, optimizers, losses, metrics
+from keras import layers, optimizers, losses, metrics
 
 def main(argv):
     if(len(sys.argv) != 3):
@@ -49,7 +49,8 @@ def main(argv):
 
 
 
-def encoder(input image):
+def encoder(image):
+    print("geia")
 
 
 def show_images(images, title_texts):
