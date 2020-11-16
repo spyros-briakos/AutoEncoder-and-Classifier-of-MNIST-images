@@ -6,6 +6,10 @@ from array import array
 import sys
 import random
 import matplotlib.pyplot as plt
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import MaxPooling2D
+from kerasimport layers, optimizers, losses, metrics
 
 def main(argv):
     if(len(sys.argv) != 3):
@@ -28,6 +32,24 @@ def main(argv):
         titles_2_show.append('training image [' + str(r) + ']')  
 
     show_images(images_2_show, titles_2_show)
+
+    
+    np.random.seed(1)
+    tf.random.set_seed(1)
+    batch_size = 128
+    epochs = 10
+    learning_rate = 1e-2
+    intermediate_dim = 64
+    original_dim = 784
+
+    X_train = Load_Mnist_Images(train_file)
+    X_train = X_train / np.max(X_train)
+    X_train = X_train.reshape(X_train.shape[0], X_train.shape[1] * X_train.shape[2])
+    X_train = X_train.astype('float32')
+
+
+
+def encoder(input image):
 
 
 def show_images(images, title_texts):
