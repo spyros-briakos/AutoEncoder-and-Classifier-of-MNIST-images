@@ -9,15 +9,12 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import MaxPooling2D
-<<<<<<< HEAD
 # from keras import layers, optimizers, losses, metrics
 # import keras
-from tensorflow.keras.layers import Input,Conv2D,MaxPooling2D,UpSampling2D
+from tensorflow.keras.layers import Input,Conv2D,MaxPooling2D,UpSampling2D,BatchNormalization
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import RMSprop
-=======
-from keras import layers, optimizers, losses, metrics
->>>>>>> 917f129b7f109a61bc33a617a80247ba45043880
+from sklearn.model_selection import train_test_split
 
 def main(argv):
     if(len(sys.argv) != 3):
@@ -41,32 +38,62 @@ def main(argv):
 
     show_images(images_2_show, titles_2_show)
     
-    np.random.seed(1)
-    tf.random.set_seed(1)
+    # np.random.seed(1)
+    # tf.random.set_seed(1)
+    # batch_size = 128
+    # epochs = 10
+    # learning_rate = 1e-2
+    # intermediate_dim = 64
+    # original_dim = 784
+
+    train_data = images 
+
+    #Rescale the training data with the maximum pixel value of them
+    train_data = train_data / np.max(train_data)
+    # print(train_data.shape[0])
+    # print(train_data.shape[1])
+    # print(train_data.shape[2])
+    train_data = train_data.reshape(train_data.shape[0], train_data.shape[1], train_data.shape[2])
+    train_data = train_data.astype('float32')
+
+    # print(type(train_data))
+    print("Training set (images) shape: {shape}".format(shape=train_data.shape))
+
+    train_data = train_data.reshape(-1, train_data.shape[1],train_data.shape[1], 1)
+
+    print(train_data.shape)
+
+    print(train_data.dtype)
+
+    print(np.max(train_data))
+
+    X_train, X_val, ground_train, ground_val = train_test_split(train_data, train_data, test_size=0.2, random_state=13)
+
     batch_size = 128
-    epochs = 10
-    learning_rate = 1e-2
-    intermediate_dim = 64
-    original_dim = 784
+    epochs = 50
+    inChannel = 1
+    x, y = 28, 28
+    input_img = Input(shape = (x, y, inChannel))
 
-    X_train = images 
+    autoencoder = Model(input_img, AutoEncoder(input_img))
+    autoencoder.compile(loss='mean_squared_error', optimizer = RMSprop())   
 
-    X_train = X_train / np.max(X_train)
-    # print(X_train.shape[0])
-    # print(X_train.shape[1])
-    # print(X_train.shape[2])
-    X_train = X_train.reshape(X_train.shape[0], X_train.shape[1], X_train.shape[2])
-    X_train = X_train.astype('float32')
+    print(autoencoder.summary())
 
-    # print(type(X_train))
-    print("Training set (images) shape: {shape}".format(shape=X_train.shape))
+    autoencoder_train = autoencoder.fit(X_train, ground_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(X_train, ground_train))
 
-    # autoencoder = Model(input_img, decoder(encoder(input_img)))
-    # autoencoder.compile(loss='mean_squared_error', optimizer = RMSprop())
+    loss = autoencoder_train.history['loss']
+    val_loss = autoencoder_train.history['val_loss']
+    epochs = range(epochs)
+    plt.figure()
+    plt.plot(epochs, loss, 'b', label='Training loss', color='r')
+    plt.plot(epochs, val_loss, 'b', label='Validation loss')
+    plt.title('Training and validation loss')
+    plt.legend()
+    # plt.show()
+    plt.savefig('train_val_loss.jpg')
+        
 
-
-
-<<<<<<< HEAD
 def AutoEncoder(input_image):
     convolution_layer = Encoder(input_image)
     decoded_layer = Decoder(convolution_layer)
@@ -74,7 +101,7 @@ def AutoEncoder(input_image):
 
 def Encoder(input_image):
     #input = 28 x 28 x 1 (wide and thin)
-    conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img)
+    conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(input_image)
     conv1 = BatchNormalization()(conv1)
     conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(conv1)
     conv1 = BatchNormalization()(conv1)
@@ -96,7 +123,7 @@ def Encoder(input_image):
     return conv4
 
 def Decoder(conv4):
-    conv5 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv5)
+    conv5 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv4)
     conv5 = BatchNormalization()(conv5)
     conv6 = Conv2D(64, (3, 3), activation='relu', padding='same')(conv5) #7 x 7 x 64
     conv6 = BatchNormalization()(conv6)
@@ -111,10 +138,6 @@ def Decoder(conv4):
     decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(up2) # 28 x 28 x 1
     
     return decoded
-=======
-def encoder(image):
-    print("geia")
->>>>>>> 917f129b7f109a61bc33a617a80247ba45043880
 
 
 def show_images(images, title_texts):
@@ -130,7 +153,7 @@ def show_images(images, title_texts):
         if title_text != '':
             plt.title(title_text, fontsize = 15);        
         index += 1
-    plt.savefig('images.jpg')
+    # plt.savefig('images.jpg')
 
 def Load_Mnist_Images(train_images_path):
     with open(train_images_path, 'rb') as file:
