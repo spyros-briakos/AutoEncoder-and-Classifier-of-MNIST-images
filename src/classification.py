@@ -319,7 +319,7 @@ def predict_labels(cf_model,test_data,test_labels,num_classes,num_of_experiment)
             axes[i,j].imshow(test_data[correct[index]].reshape(28,28), cmap='gray', interpolation='none')
             axes[i,j].set_title("Predicted {}, Class {}".format(predicted_classes[correct[index]], test_labels[correct[index]]))
         
-    path_correct = "images/labels/" + "correct" + str(num_of_experiment) + ".jpg" 
+    path_correct = "images/classifier/labels/correct" + str(num_of_experiment) + ".jpg" 
     fig.savefig(path_correct)
 
     incorrect = np.where(predicted_classes!=test_labels)[0]
@@ -333,7 +333,7 @@ def predict_labels(cf_model,test_data,test_labels,num_classes,num_of_experiment)
             axes2[i,j].imshow(test_data[incorrect[index]].reshape(28,28), cmap='gray', interpolation='none')
             axes2[i,j].set_title("Predicted {}, Class {}".format(predicted_classes[incorrect[index]], test_labels[incorrect[index]]))
         
-    path_incorrect = "images/labels/" + "incorrect" + str(num_of_experiment) + ".jpg" 
+    path_incorrect = "images/classifier/labels/incorrect" + str(num_of_experiment) + ".jpg" 
     fig2.savefig(path_incorrect)
 
     print("Found %d correct labels" % len(correct))
@@ -371,7 +371,7 @@ def plot_results(experiment_losses,experiment_hyperparams,changed_hyperparam,num
     _=ax.plot(values_of_changed_hyperparam,val_losses, 'b', label='val')
     _=ax.legend(fontsize=14)
 
-    losses_path = "images/losses/" + "experiment_loss" + str(num_of_experiment) + ".jpg" 
+    losses_path = "images/classifier/losses/experiment_loss" + str(num_of_experiment) + ".jpg" 
     fig.savefig(losses_path)
 
 # Functions which read hyperparameters
