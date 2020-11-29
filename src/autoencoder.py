@@ -44,6 +44,7 @@ def main(argv):
     filters = read_filters(num_of_convlayers)
     filter_size = read_filter_size()
     batchordropout = dropoutorbatchnorm()
+    num_of_experiment=0
 
     while True:
 
@@ -87,12 +88,13 @@ def main(argv):
                             temp_losses, temp_model, hyperparams = train_model(num_of_convlayers,filters,filter_size,batch_size,epochs,batchordropout,X_train,ground_train)
                             losses.append(temp_losses)
                             params.append(hyperparams)
+                            num_of_experiment+=1
                             experiment_decision=10
 
                             
                         # Case: Plot experiment's results
                         elif experiment_decision==2:
-                            plot_results(losses,params,hyperparameter)
+                            plot_results(losses,params,hyperparameter,num_of_experiment)
                             experiment_decision=10
                         
                         # Case: Save model
