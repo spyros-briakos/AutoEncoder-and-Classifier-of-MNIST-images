@@ -319,7 +319,7 @@ def predict_labels(cf_model,test_data,test_labels,num_classes,num_of_experiment)
             axes[i,j].imshow(test_data[correct[index]].reshape(28,28), cmap='gray', interpolation='none')
             axes[i,j].set_title("Predicted {}, Class {}".format(predicted_classes[correct[index]], test_labels[correct[index]]))
         
-    path_correct = "images/" + "correct" + str(num_of_experiment) + ".jpg" 
+    path_correct = "images/labels/" + "correct" + str(num_of_experiment) + ".jpg" 
     fig.savefig(path_correct)
 
     incorrect = np.where(predicted_classes!=test_labels)[0]
@@ -333,7 +333,7 @@ def predict_labels(cf_model,test_data,test_labels,num_classes,num_of_experiment)
             axes2[i,j].imshow(test_data[incorrect[index]].reshape(28,28), cmap='gray', interpolation='none')
             axes2[i,j].set_title("Predicted {}, Class {}".format(predicted_classes[incorrect[index]], test_labels[incorrect[index]]))
         
-    path_incorrect = "images/" + "incorrect" + str(num_of_experiment) + ".jpg" 
+    path_incorrect = "images/labels/" + "incorrect" + str(num_of_experiment) + ".jpg" 
     fig2.savefig(path_incorrect)
 
     print("Found %d correct labels" % len(correct))
@@ -344,45 +344,48 @@ def predict_labels(cf_model,test_data,test_labels,num_classes,num_of_experiment)
 # Function which plots loss vs epochs for all experiments.
 def plot_results(experiment_losses,experiment_hyperparams,changed_hyperparam,num_of_experiment):
   
-  fig,ax = plt.subplots(figsize=(10,10))
-  ax.set_title('Training and validation loss',fontsize=18)
-  ax.set_xlabel('Epochs', fontsize=18)
-  ax.set_ylabel('Loss', fontsize=18)
+    fig,ax = plt.subplots(figsize=(10,10))
+    ax.set_title('Training and validation loss',fontsize=18)
+    ax.set_xlabel('Epochs', fontsize=18)
+    ax.set_ylabel('Loss', fontsize=18)
 
-  num_of_experiments = len(experiment_losses)
-  y_pos = np.arange(len(experiment_losses))
-  values_of_changed_hyperparam = []
-  train_losses = []
-  val_losses = []
+    num_of_experiments = len(experiment_losses)
+    y_pos = np.arange(len(experiment_losses))
+    values_of_changed_hyperparam = []
+    train_losses = []
+    val_losses = []
 
-  for i in range(num_of_experiments):
-    if changed_hyperparam==1:
-      values_of_changed_hyperparam.append("Epochs:"+str(experiment_hyperparams[i][0]))
-    elif changed_hyperparam==2:
-      values_of_changed_hyperparam.append("Batch Size:"+str(experiment_hyperparams[i][1]))
-    elif changed_hyperparam==3:
-      values_of_changed_hyperparam.append("FC Units:"+str(experiment_hyperparams[i][2]))
-   
-    num_of_epochs = experiment_hyperparams[i][0]
-    train_losses.append(experiment_losses[i][0][num_of_epochs-1])
-    val_losses.append(experiment_losses[i][1][num_of_epochs-1])
+    for i in range(num_of_experiments):
+        if changed_hyperparam==1:
+            values_of_changed_hyperparam.append("Epochs:"+str(experiment_hyperparams[i][0]))
+        elif changed_hyperparam==2:
+            values_of_changed_hyperparam.append("Batch Size:"+str(experiment_hyperparams[i][1]))
+        elif changed_hyperparam==3:
+            values_of_changed_hyperparam.append("FC Units:"+str(experiment_hyperparams[i][2]))
+    
+        num_of_epochs = experiment_hyperparams[i][0]
+        train_losses.append(experiment_losses[i][0][num_of_epochs-1])
+        val_losses.append(experiment_losses[i][1][num_of_epochs-1])
 
-  _=ax.plot(values_of_changed_hyperparam,train_losses, 'b', label='train', color='r')
-  _=ax.plot(values_of_changed_hyperparam,val_losses, 'b', label='val')
-  _=ax.legend(fontsize=14)
+    _=ax.plot(values_of_changed_hyperparam,train_losses, 'b', label='train', color='r')
+    _=ax.plot(values_of_changed_hyperparam,val_losses, 'b', label='val')
+    _=ax.legend(fontsize=14)
+
+    losses_path = "images/losses/" + "experiment_loss" + str(num_of_experiment) + ".jpg" 
+    fig.savefig(losses_path)
 
 # Functions which read hyperparameters
 def read_epochs():
-  return int(input("Please give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
+  return int(input("/nPlease give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
 
 def read_batch_size():
-  return int(input("Please give me batch size (i.e. 32 or 64 or 128 etc.): "))
+  return int(input("/nPlease give me batch size (i.e. 32 or 64 or 128 etc.): "))
 
 def read_fcunits():
-  return int(input("Please give me number of units of Fully Connected layer (i.e. 128 or 256 etc): "))
+  return int(input("/nPlease give me number of units of Fully Connected layer (i.e. 128 or 256 etc): "))
 
 def dropoutornot():
-  return int(input("Fully Connected Layer With Dropout(1) or Without Dropout(2): "))
+  return int(input("/nFully Connected Layer With Dropout(1) or Without Dropout(2): "))
 
 if __name__ == "__main__":
     main(sys.argv[0:])
