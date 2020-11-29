@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import MaxPooling2D
-# from keras import layers, optimizers, losses, metrics
-# import keras
 from tensorflow.keras.layers import Input,Conv2D,MaxPooling2D,UpSampling2D,BatchNormalization
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import RMSprop
