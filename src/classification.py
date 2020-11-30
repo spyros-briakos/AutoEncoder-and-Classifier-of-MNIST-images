@@ -265,33 +265,36 @@ def Load_Mnist_Images(images_path, labels_path):
 
 # Function which stacks hyperparameters into a list and returns it
 def stack_hyperparams(fc_units_,batch_size_,epochs_,dropoutornot_):
-  stacked = []
-  stacked.append(epochs_)
-  stacked.append(batch_size_)
-  stacked.append(fc_units_)
-  stacked.append(dropoutornot_)
-  return stacked
+    stacked = []
+    stacked.append(epochs_)
+    stacked.append(batch_size_)
+    stacked.append(fc_units_)
+    stacked.append(dropoutornot_)
+    return stacked
 
 # Function which train a model with specific parameters
 def train_model(autoencoder,num_classes,fc_units,batch_size,epochs,dropoutornot,X_train,Y_train,X_val,Y_val):
   
-  # Define our instance of class FC_NN
-  model = FC_Neural_Network(autoencoder,fc_units,num_classes,dropoutornot).merge_models()
+    # Clear previous model
+    tf.keras.backend.clear_session()
+    
+    # Define our instance of class FC_NN
+    model = FC_Neural_Network(autoencoder,fc_units,num_classes,dropoutornot).merge_models()
 
-  # Compile our model
-  model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
- 
-  # Check our model
-  print(model.summary())
- 
-  # Train our model
-  classifier_train = model.fit(X_train, Y_train, batch_size=batch_size,epochs=epochs,verbose=1,validation_data=(X_val, Y_val))
+    # Compile our model
+    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
+    
+    # Check our model
+    print(model.summary())
+    
+    # Train our model
+    classifier_train = model.fit(X_train, Y_train, batch_size=batch_size,epochs=epochs,verbose=1,validation_data=(X_val, Y_val))
 
-  train_loss = classifier_train.history['loss']
-  val_loss = classifier_train.history['val_loss']
-  hyperparams = stack_hyperparams(fc_units,batch_size,epochs,dropoutornot)
+    train_loss = classifier_train.history['loss']
+    val_loss = classifier_train.history['val_loss']
+    hyperparams = stack_hyperparams(fc_units,batch_size,epochs,dropoutornot)
 
-  return ((train_loss,val_loss),model,hyperparams)
+    return ((train_loss,val_loss),model,hyperparams)
 
 # Function which predicts labels on test data of a specific model
 def predict_labels(cf_model,test_data,test_labels,num_classes,num_of_experiment):
@@ -367,16 +370,16 @@ def plot_results(experiment_losses,experiment_hyperparams,changed_hyperparam,num
 
 # Functions which read hyperparameters
 def read_epochs():
-  return int(input("\nPlease give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
+    return int(input("\nPlease give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
 
 def read_batch_size():
-  return int(input("\nPlease give me batch size (i.e. 32 or 64 or 128 etc.): "))
+    return int(input("\nPlease give me batch size (i.e. 32 or 64 or 128 etc.): "))
 
 def read_fcunits():
-  return int(input("\nPlease give me number of units of Fully Connected layer (i.e. 128 or 256 etc): "))
+    return int(input("\nPlease give me number of units of Fully Connected layer (i.e. 128 or 256 etc): "))
 
 def dropoutornot():
-  return int(input("\nFully Connected Layer With Dropout(1) or Without Dropout(2): "))
+    return int(input("\nFully Connected Layer With Dropout(1) or Without Dropout(2): "))
 
 if __name__ == "__main__":
     main(sys.argv[0:])

@@ -238,34 +238,40 @@ class AutoEncoder():
 
 # Function which stacks hyperparameters into a list and returns it
 def stack_hyperparams(num_of_convlayers_,filters_,filter_size_,batch_size_,epochs_):
-  stacked = []
-  stacked.append(num_of_convlayers_)
-  stacked.append(filters_)
-  stacked.append(filter_size_)
-  stacked.append(batch_size_)
-  stacked.append(epochs_)
-  return stacked
+    stacked = []
+    stacked.append(num_of_convlayers_)
+    stacked.append(filters_)
+    stacked.append(filter_size_)
+    stacked.append(batch_size_)
+    stacked.append(epochs_)
+    return stacked
 
 # Function which train a model with specific parameters
 def train_model(num_of_convlayers,filters,filter_size,batch_size,epochs,dropoutorbatch,X_train,ground_train):
   
-  # Shape of each photo
-  input_img = Input(shape = (28, 28, 1))
-  # Define our instance of class AutoEncoder
-  autoenc = AutoEncoder(input_img,num_of_convlayers,filters,filter_size,dropoutorbatch)
-  # Define our model
-  autoencoder = Model(input_img, autoenc.call())
-  # Compile our model
-  autoencoder.compile(loss='mean_squared_error', optimizer = RMSprop())  
-  print(autoencoder.summary()) 
-  # Train our model
-  autoencoder_train = autoencoder.fit(X_train, ground_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(X_train, ground_train))
+    # Shape of each photo
+    input_img = Input(shape = (28, 28, 1))
+    
+    # Clear previous model
+    tf.keras.backend.clear_session()
+    
+    # Define our instance of class AutoEncoder
+    autoenc = AutoEncoder(input_img,num_of_convlayers,filters,filter_size,dropoutorbatch)
+    
+    # Define our model
+    autoencoder = Model(input_img, autoenc.call())
+    
+    # Compile our model
+    autoencoder.compile(loss='mean_squared_error', optimizer = RMSprop())  
+    print(autoencoder.summary()) 
+    # Train our model
+    autoencoder_train = autoencoder.fit(X_train, ground_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(X_train, ground_train))
 
-  train_loss = autoencoder_train.history['loss']
-  val_loss = autoencoder_train.history['val_loss']
-  hyperparams = stack_hyperparams(num_of_convlayers,filters,filter_size,batch_size,epochs)
+    train_loss = autoencoder_train.history['loss']
+    val_loss = autoencoder_train.history['val_loss']
+    hyperparams = stack_hyperparams(num_of_convlayers,filters,filter_size,batch_size,epochs)
 
-  return ((train_loss,val_loss),autoencoder,hyperparams)
+    return ((train_loss,val_loss),autoencoder,hyperparams)
 
 # Function which plots loss vs epochs for all experiments.
 def plot_results(experiment_losses,experiment_hyperparams,changed_hyperparam,num_of_experiment):
@@ -305,31 +311,31 @@ def plot_results(experiment_losses,experiment_hyperparams,changed_hyperparam,num
 
 # Functions which read hyperparameters
 def read_epochs():
-  return int(input("\nPlease give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
+    return int(input("\nPlease give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
 
 def read_batch_size():
-  return int(input("\nPlease give me batch size (i.e. 32 or 64 or 128 etc.): "))
+    return int(input("\nPlease give me batch size (i.e. 32 or 64 or 128 etc.): "))
 
 def read_convlayers():
-  return int(input("\nPlease give me number of convolutional layers for Encoder (it will be the same for Decoder, i.e. 3 or 4 or 5 etc.): "))
+    return int(input("\nPlease give me number of convolutional layers for Encoder (it will be the same for Decoder, i.e. 3 or 4 or 5 etc.): "))
 
 def read_filters(num_of_convlayers):
-  while True:
-    filters = input("\nPlease give me list with number of filters in each convolutional layer, seperated by comma (i.e. 16,32,64): ")
-    filters = list(map(int,filters.split(',')))
-    if len(filters)!=num_of_convlayers:
-      print("You must give a list of numbers with size as much as number of convulotional layers!\n") 
-    else:
-      break
-  return filters
+    while True:
+        filters = input("\nPlease give me list with number of filters in each convolutional layer, seperated by comma (i.e. 16,32,64): ")
+        filters = list(map(int,filters.split(',')))
+        if len(filters)!=num_of_convlayers:
+            print("You must give a list of numbers with size as much as number of convulotional layers!\n") 
+        else:
+            break
+    return filters
 
 def read_filter_size():
-  filter_size = input("\nPlease give me size of filter, 2 integers seperated by comma (i.e. 2,2 or 3,3 etc.): ")
-  filter_size = tuple(map(int, filter_size.split(','))) 
-  return filter_size
+    filter_size = input("\nPlease give me size of filter, 2 integers seperated by comma (i.e. 2,2 or 3,3 etc.): ")
+    filter_size = tuple(map(int, filter_size.split(','))) 
+    return filter_size
 
 def dropoutorbatchnorm():
-  return int(input("\nDropout(1) or Batch Normalization(2): "))
+    return int(input("\nDropout(1) or Batch Normalization(2): "))
 
 if __name__ == "__main__":
     main(sys.argv[0:])
