@@ -241,7 +241,6 @@ def show_images(images, title_texts):
         if title_text != '':
             plt.title(title_text, fontsize = 15);        
         index += 1
-    # plt.savefig('images.jpg')
     plt.show()
 
 def Load_Mnist_Images(images_path, labels_path):
