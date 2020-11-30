@@ -80,6 +80,7 @@ def main(argv):
                                 batch_size = read_batch_size()
                             elif hyperparameter==3:
                                 num_of_convlayers = read_convlayers()
+                                filters = read_filters(num_of_convlayers)
                             elif hyperparameter==4:
                                 filters = read_filters(num_of_convlayers)
                             elif hyperparameter==5:

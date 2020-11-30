@@ -15,7 +15,7 @@ from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 import PIL
-from keras.regularizers import l2
+from tensorflow.keras.regularizers import l2
 
 def main(argv):
     if(len(sys.argv) != 11):
@@ -65,14 +65,12 @@ def main(argv):
     train_data = train_data / np.max(train_data)
     test_data = test_data / np.max(test_data)
 
-    print("Training set (images) shape: {shape}".format(shape=train_data.shape))
-    print("Test set (images) shape: {shape}".format(shape=test_data.shape))
+    print("\nTraining set's shape: {shape}".format(shape=train_data.shape))
+    print("Test set's shape: {shape}".format(shape=test_data.shape),"\n")
 
     # Find the unique numbers from the train labels
     classes = np.unique(train_labels)
     num_classes = len(classes)
-    print('Total number of outputs : ', num_classes)
-    print('Output classes : ', classes)
 
     plt.figure(figsize=[5,5])
 
@@ -89,28 +87,21 @@ def main(argv):
     # Reshape train and test data
     train_data = train_data.reshape(-1, train_data.shape[1],train_data.shape[1], 1)
     test_data = test_data.reshape(-1, test_data.shape[1],test_data.shape[1], 1)
-    print(train_data.shape,test_data.shape)
 
     # Convert from float64 to float 32.
-    print(train_data.dtype)
     train_data = train_data.astype('float32')
     test_data = test_data.astype('float32')
-    print(train_data.dtype)
 
     # Change the labels from categorical to one-hot encoding
     train_labels_one_hot = to_categorical(train_labels)
     test_labels_one_hot = to_categorical(test_labels)
-
-    # Display the change for category label using one-hot encoding
-    print('Original label:', train_labels[0])
-    print('After conversion to one-hot:', train_labels_one_hot[0])
 
     # Split train dataset to train and validation datasets.
     X_train, X_val, Y_train, Y_val = train_test_split(train_data, train_labels_one_hot, test_size=0.2, random_state=13)
     print("Shape of X_train: ", X_train.shape)
     print("Shape of X_val: ", X_val.shape)
     print("Shape of Y_train: ", Y_train.shape)
-    print("Shape of Y_val: ", Y_val.shape)
+    print("Shape of Y_val: ", Y_val.shape, "\n")
 
     # Load AutoEncoder that user give us
     autoencoder = keras.models.load_model(autoencoder)
@@ -376,16 +367,16 @@ def plot_results(experiment_losses,experiment_hyperparams,changed_hyperparam,num
 
 # Functions which read hyperparameters
 def read_epochs():
-  return int(input("/nPlease give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
+  return int(input("\nPlease give me number of epochs (i.e. 10 or 20 or 30 etc.): "))
 
 def read_batch_size():
-  return int(input("/nPlease give me batch size (i.e. 32 or 64 or 128 etc.): "))
+  return int(input("\nPlease give me batch size (i.e. 32 or 64 or 128 etc.): "))
 
 def read_fcunits():
-  return int(input("/nPlease give me number of units of Fully Connected layer (i.e. 128 or 256 etc): "))
+  return int(input("\nPlease give me number of units of Fully Connected layer (i.e. 128 or 256 etc): "))
 
 def dropoutornot():
-  return int(input("/nFully Connected Layer With Dropout(1) or Without Dropout(2): "))
+  return int(input("\nFully Connected Layer With Dropout(1) or Without Dropout(2): "))
 
 if __name__ == "__main__":
     main(sys.argv[0:])
