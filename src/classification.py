@@ -213,8 +213,8 @@ class FC_Neural_Network():
     for layer in self.encoder.layers:
       self.model.add(layer)
 
-    # for layer in self.model.layers:
-    #   layer.trainable = False
+    for layer in self.model.layers:
+      layer.trainable = False
     
     print("Encoder Layers:",len(self.encoder.layers))
 
@@ -276,22 +276,41 @@ def train_model(autoencoder,num_classes,fc_units,batch_size,epochs,dropoutornot,
   
     # Clear previous model
     tf.keras.backend.clear_session()
-    
+
     # Define our instance of class FC_NN
     model = FC_Neural_Network(autoencoder,fc_units,num_classes,dropoutornot).merge_models()
 
     # Compile our model
-    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
+    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.RMSprop(learning_rate=1e-4),metrics=['accuracy'])
     
     # Check our model
     print(model.summary())
+
+    epochs_of_first_train = 10
     
     # Train our model
-    classifier_train = model.fit(X_train, Y_train, batch_size=batch_size,epochs=epochs,verbose=1,validation_data=(X_val, Y_val))
+    classifier_train = model.fit(X_train, Y_train, batch_size=batch_size,epochs=epochs_of_first_train,verbose=1,validation_data=(X_val, Y_val))
 
-    train_loss = classifier_train.history['loss']
-    val_loss = classifier_train.history['val_loss']
+    # Active the trainability of encoded layers for the second fit
+    for layer in model.layers[:-4]:
+        layer.trainable = True
+
+    # Compile again the model, after we change the trainability of some layers
+    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.RMSprop(learning_rate=1e-4),metrics=['accuracy'])
+
+    # Train the model for second time 
+    classifier_train_1 = model.fit(X_train, Y_train, batch_size=batch_size,epochs=epochs,verbose=1,validation_data=(X_val, Y_val))
+
+    train_loss = classifier_train.history['loss'] + classifier_train_1.history['loss']
+    val_loss = classifier_train.history['val_loss'] + classifier_train_1.history['val_loss']
     hyperparams = stack_hyperparams(fc_units,batch_size,epochs,dropoutornot)
+
+    # Plot loss vs epochs
+    fig,ax = plt.subplots(1,figsize=(8,8))
+    _=ax.plot(train_loss, 'r', label='Training loss')
+    _=ax.plot(val_loss, 'b', label='Validation loss')
+    _=ax.set_title('Training and validation loss')
+    _=ax.legend()
 
     return ((train_loss,val_loss),model,hyperparams)
 
