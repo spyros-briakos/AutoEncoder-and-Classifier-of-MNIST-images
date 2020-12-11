@@ -15,13 +15,13 @@
 - For Classifier: *python src/classification.py -d data/train/train-images-idx3-ubyte -dl data/train/train-labels-idx1-ubyte -t data/test/t10k-images-idx3-ubyte -tl data/test/t10k-labels-idx1-ubyte -model dropoutautoencoder.h5*
 
 ## Results
-> From directory 'results_of_experiments' we are going display some plots from our best models. Note that inside this directory we saved some pretty good models for AutoEncoder, but also for Classifier.
+> From directory 'results_of_experiments' we are going display plots, loss vs epochs with specific hyperparameters after a series of experiments (tuning), from our best models. Note that inside this directory we saved some pretty good models for AutoEncoder, but also for Classifier.
 
-1. Firstly for Auto-Encoder let's check loss vs epochs with specific hyperparameters after a series of experiments (tuning):
+1. Firstly for Auto-Encoder:
 
 ![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_A/Best_Model/Best_Model_With_Different_Batch_Sizes/Batch_Size_32.png)
 
-2. Secondly for Classifier let's check loss vs epochs with specific hyperparameters after a series of experiments (tuning):
+2. Secondly for Classifier:
 
 ![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_B/Best_Model/Extra_Experiment_With_Reduced_Batch_Size_32/Epochs_40*Batch_Size_32*FC_Units_128.png)
 
