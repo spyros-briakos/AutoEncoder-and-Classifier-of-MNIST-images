@@ -23,7 +23,7 @@
 
 2. Secondly for Classifier let's check loss vs epochs with specific hyperparameters after a series of experiments (tuning):
 
-![alt text](![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_A/Best_Model/Best_Model_With_Different_Batch_Sizes/Batch_Size_32.png)
+![alt text](![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_B/Best_Model/Extra_Experiment_With_Reduced_Batch_Size_32/Epochs_40*Batch_Size_32*FC_Units_128.png)
 
 
 
