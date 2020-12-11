@@ -25,6 +25,13 @@
 
 ![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_B/Best_Model/Extra_Experiment_With_Reduced_Batch_Size_32/Epochs_40*Batch_Size_32*FC_Units_128.png)
 
+- Correct Labels
+
+![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_B/Best_Model/correct1.jpg)
+
+- InCorrect Labels
+
+![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_B/Best_Model/incorrect1.jpg)
 
 
 ## Contributors
