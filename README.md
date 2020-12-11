@@ -15,7 +15,10 @@
 - For Classifier: *python src/classification.py -d data/train/train-images-idx3-ubyte -dl data/train/train-labels-idx1-ubyte -t data/test/t10k-images-idx3-ubyte -tl data/test/t10k-labels-idx1-ubyte -model dropoutautoencoder.h5*
 
 ## Results
-> From directory 'results_of_experiments' we are going display some plots from our best models
+> From directory 'results_of_experiments' we are going display some plots from our best models. Note that inside this directory we saved some pretty good models for AutoEncoder, but also for Classifier.
+
+![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_A/Best_Model/Best_Model_With_Different_Batch_Sizes/Batch_Size_32.png)
+
 
 ## Contributors
 1. [Alexandra Apostolopoulou](https://github.com/alexaapo)
