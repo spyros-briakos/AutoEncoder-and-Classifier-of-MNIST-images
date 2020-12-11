@@ -17,6 +17,8 @@
 ## Results
 > From directory 'results_of_experiments' we are going display some plots from our best models. Note that inside this directory we saved some pretty good models for AutoEncoder, but also for Classifier.
 
+1. Firstly for Auto-Encoder let's check loss vs epochs with specific hyperparameters after a series of experiments (tuning):
+
 ![alt text](https://github.com/spympr/AutoEncoder-and-Classifier-of-MNIST-images/blob/master/results_of_experiments/Results_A/Best_Model/Best_Model_With_Different_Batch_Sizes/Batch_Size_32.png)
 
 
