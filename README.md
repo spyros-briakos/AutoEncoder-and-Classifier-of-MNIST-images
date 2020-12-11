@@ -13,3 +13,10 @@
 - For AutoEncoder: *python src/autoencoder.py -d data/train/train-images-idx3-ubyte*
 
 - For Classifier: *python src/classification.py -d data/train/train-images-idx3-ubyte -dl data/train/train-labels-idx1-ubyte -t data/test/t10k-images-idx3-ubyte -tl data/test/t10k-labels-idx1-ubyte -model dropoutautoencoder.h5*
+
+## Results
+> From directory 'results_of_experiments' we are going display some plots from our best models
+
+## Contributors
+1. [Alexandra Apostolopoulou](https://github.com/alexaapo)
+2. [Spyros Briakos](https://github.com/spympr)
